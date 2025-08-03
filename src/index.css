@@ -2,32 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Bible Study App Design System - Modern Neutral Colors */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 99%;
+    --foreground: 225 25% 20%;
+    
+    /* Brand colors - warm, spiritual neutrals */
+    --primary: 210 20% 25%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 210 25% 35%;
+    
+    /* Content colors */
+    --content-warm: 35 15% 95%;
+    --content-accent: 210 15% 85%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210 20% 25%), hsl(210 25% 35%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 99%), hsl(210 15% 96%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 10% 98%));
+    
+    /* Shadows */
+    --shadow-elegant: 0 4px 20px -4px hsl(210 20% 25% / 0.1);
+    --shadow-card: 0 2px 12px -2px hsl(210 15% 25% / 0.08);
+    --shadow-hover: 0 8px 30px -8px hsl(210 20% 25% / 0.15);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 225 25% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 225 25% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --secondary: 35 15% 95%;
+    --secondary-foreground: 225 25% 20%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 15% 96%;
+    --muted-foreground: 210 10% 55%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 15% 85%;
+    --accent-foreground: 225 25% 20%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -56,8 +74,8 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 225 25% 8%;
+    --foreground: 210 15% 95%;
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -101,5 +119,36 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-subtle);
+    min-height: 100vh;
+  }
+  
+  /* Custom utility classes */
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+  
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .shadow-hover {
+    box-shadow: var(--shadow-hover);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-spring {
+    transition: var(--transition-spring);
   }
 }
