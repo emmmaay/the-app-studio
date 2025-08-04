@@ -1,9 +1,21 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, BookOpen, Users, Search, User } from "lucide-react";
+import { Menu, X, BookOpen, Users, Search, User, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAuthAction = () => {
+    if (user) {
+      signOut();
+    } else {
+      navigate('/auth');
+    }
+  };
 
   return (
     <nav className="gradient-primary shadow-elegant sticky top-0 z-50">
@@ -28,9 +40,9 @@ export function Navigation() {
             <a href="#" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
               My Progress
             </a>
-            <Button variant="secondary" size="sm">
-              <User className="h-4 w-4 mr-2" />
-              Sign In
+            <Button variant="secondary" size="sm" onClick={handleAuthAction}>
+              {user ? <LogOut className="h-4 w-4 mr-2" /> : <User className="h-4 w-4 mr-2" />}
+              {user ? 'Sign Out' : 'Sign In'}
             </Button>
           </div>
 
@@ -60,9 +72,9 @@ export function Navigation() {
               <a href="#" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                 My Progress
               </a>
-              <Button variant="secondary" size="sm" className="w-fit">
-                <User className="h-4 w-4 mr-2" />
-                Sign In
+              <Button variant="secondary" size="sm" className="w-fit" onClick={handleAuthAction}>
+                {user ? <LogOut className="h-4 w-4 mr-2" /> : <User className="h-4 w-4 mr-2" />}
+                {user ? 'Sign Out' : 'Sign In'}
               </Button>
             </div>
           </div>
