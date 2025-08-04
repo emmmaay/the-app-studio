@@ -10,6 +10,7 @@ interface StudySetCardProps {
   classCount: number;
   enrolledCount: number;
   imageUrl?: string;
+  onClick?: () => void;
 }
 
 export function StudySetCard({ 
@@ -18,10 +19,11 @@ export function StudySetCard({
   setNumber, 
   classCount, 
   enrolledCount,
-  imageUrl 
+  imageUrl,
+  onClick
 }: StudySetCardProps) {
   return (
-    <Card className="gradient-card shadow-card hover:shadow-hover transition-spring group cursor-pointer">
+    <Card className="gradient-card shadow-card hover:shadow-hover transition-spring group cursor-pointer" onClick={onClick}>
       <div className="aspect-video bg-content-warm rounded-t-lg overflow-hidden">
         {imageUrl ? (
           <img 

@@ -31,13 +31,13 @@ export function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <a href="#" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
+            <a href="/" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
               Classes
             </a>
-            <a href="#" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
+            <a href="/characters" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
               Characters
             </a>
-            <a href="#" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
+            <a href="/progress" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
               My Progress
             </a>
             <Button variant="secondary" size="sm" onClick={handleAuthAction}>
@@ -63,13 +63,13 @@ export function Navigation() {
         {isMenuOpen && (
           <div className="md:hidden border-t border-white/20 py-4">
             <div className="flex flex-col space-y-3">
-              <a href="#" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
+              <a href="/" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                 Classes
               </a>
-              <a href="#" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
+              <a href="/characters" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                 Characters
               </a>
-              <a href="#" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
+              <a href="/progress" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                 My Progress
               </a>
               <Button variant="secondary" size="sm" className="w-fit" onClick={handleAuthAction}>

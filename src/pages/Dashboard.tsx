@@ -1,65 +1,45 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
 import { StudySetCard } from "@/components/StudySetCard";
+import { supabase } from "@/integrations/supabase/client";
 
-// Sample data - you can edit this easily
-const studySets = [
-  {
-    id: 1,
-    title: "Foundation Studies",
-    description: "Core biblical foundations and principles for new believers and those wanting to strengthen their faith roots.",
-    setNumber: 1,
-    classCount: 4,
-    enrolledCount: 340,
-    imageUrl: "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=500&q=80"
-  },
-  {
-    id: 2,
-    title: "Old Testament Survey",
-    description: "Journey through the Old Testament exploring God's relationship with His people throughout history.",
-    setNumber: 2,
-    classCount: 4,
-    enrolledCount: 285,
-    imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=500&q=80"
-  },
-  {
-    id: 3,
-    title: "New Testament Survey",
-    description: "Exploring the New Testament from the Gospels through Revelation and early church formation.",
-    setNumber: 3,
-    classCount: 4,
-    enrolledCount: 412,
-    imageUrl: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=500&q=80"
-  },
-  {
-    id: 4,
-    title: "Christian Living",
-    description: "Practical Christian life applications for daily living, relationships, and spiritual growth.",
-    setNumber: 4,
-    classCount: 4,
-    enrolledCount: 198,
-    imageUrl: "https://images.unsplash.com/photo-1486718448742-163732cd1544?w=500&q=80"
-  },
-  {
-    id: 5,
-    title: "Discipleship Training",
-    description: "Growing in spiritual maturity and learning to disciple others in their faith journey.",
-    setNumber: 5,
-    classCount: 4,
-    enrolledCount: 156,
-  },
-  {
-    id: 6,
-    title: "Leadership & Ministry",
-    description: "Developing leadership and ministry skills for serving effectively in God's kingdom.",
-    setNumber: 6,
-    classCount: 4,
-    enrolledCount: 89,
-    imageUrl: "https://images.unsplash.com/photo-1496307653780-42ee777d4833?w=500&q=80"
-  }
-];
+interface BibleClass {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  instructor: string;
+  duration_weeks: number;
+  difficulty_level: string;
+  total_lessons: number;
+}
 
 export default function Dashboard() {
+  const [classes, setClasses] = useState<BibleClass[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchClasses();
+  }, []);
+
+  const fetchClasses = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('bible_classes')
+        .select('*')
+        .order('title');
+
+      if (error) throw error;
+      setClasses(data || []);
+    } catch (error) {
+      console.error('Error fetching classes:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -78,19 +58,36 @@ export default function Dashboard() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {studySets.map((set) => (
-              <StudySetCard
-                key={set.id}
-                title={set.title}
-                description={set.description}
-                setNumber={set.setNumber}
-                classCount={set.classCount}
-                enrolledCount={set.enrolledCount}
-                imageUrl={set.imageUrl}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="h-48 bg-muted rounded-lg mb-4"></div>
+                  <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
+                  <div className="h-3 bg-muted rounded w-full"></div>
+                </div>
+              ))}
+            </div>
+          ) : classes.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-lg">No classes available yet.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {classes.map((bibleClass, index) => (
+                <StudySetCard
+                  key={bibleClass.id}
+                  title={bibleClass.title}
+                  description={bibleClass.description}
+                  setNumber={index + 1}
+                  classCount={bibleClass.total_lessons}
+                  enrolledCount={Math.floor(Math.random() * 400) + 50} // Random for demo
+                  imageUrl={bibleClass.image_url || '/placeholder.svg'}
+                  onClick={() => navigate(`/class/${bibleClass.id}`)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
       
@@ -101,13 +98,19 @@ export default function Dashboard() {
             Quick <span className="text-primary">Access</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="p-6 gradient-card shadow-card rounded-lg hover:shadow-hover transition-spring cursor-pointer">
+            <div 
+              className="p-6 gradient-card shadow-card rounded-lg hover:shadow-hover transition-spring cursor-pointer"
+              onClick={() => navigate('/characters')}
+            >
               <h3 className="text-lg font-semibold mb-2">Bible Characters</h3>
               <p className="text-muted-foreground text-sm">
                 Explore the lives and lessons of key biblical figures
               </p>
             </div>
-            <div className="p-6 gradient-card shadow-card rounded-lg hover:shadow-hover transition-spring cursor-pointer">
+            <div 
+              className="p-6 gradient-card shadow-card rounded-lg hover:shadow-hover transition-spring cursor-pointer"
+              onClick={() => navigate('/progress')}
+            >
               <h3 className="text-lg font-semibold mb-2">My Progress</h3>
               <p className="text-muted-foreground text-sm">
                 Track your study progress and completed lessons

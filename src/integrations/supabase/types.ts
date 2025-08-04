@@ -14,6 +14,131 @@ export type Database = {
   }
   public: {
     Tables: {
+      bible_characters: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          key_verses: string[] | null
+          name: string
+          story_summary: string | null
+          testament: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          key_verses?: string[] | null
+          name: string
+          story_summary?: string | null
+          testament: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          key_verses?: string[] | null
+          name?: string
+          story_summary?: string | null
+          testament?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      bible_classes: {
+        Row: {
+          created_at: string
+          description: string | null
+          difficulty_level: string | null
+          duration_weeks: number | null
+          id: string
+          image_url: string | null
+          instructor: string | null
+          title: string
+          total_lessons: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          difficulty_level?: string | null
+          duration_weeks?: number | null
+          id?: string
+          image_url?: string | null
+          instructor?: string | null
+          title: string
+          total_lessons?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          difficulty_level?: string | null
+          duration_weeks?: number | null
+          id?: string
+          image_url?: string | null
+          instructor?: string | null
+          title?: string
+          total_lessons?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      lessons: {
+        Row: {
+          class_id: string
+          content: string | null
+          created_at: string
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          lesson_order: number
+          title: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          class_id: string
+          content?: string | null
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          lesson_order: number
+          title: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          class_id?: string
+          content?: string | null
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          lesson_order?: number
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lessons_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "bible_classes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -43,6 +168,57 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      user_progress: {
+        Row: {
+          class_id: string
+          completed_at: string | null
+          created_at: string
+          id: string
+          lesson_id: string | null
+          notes: string | null
+          progress_percentage: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          class_id: string
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          lesson_id?: string | null
+          notes?: string | null
+          progress_percentage?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          class_id?: string
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          lesson_id?: string | null
+          notes?: string | null
+          progress_percentage?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_progress_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "bible_classes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_progress_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
