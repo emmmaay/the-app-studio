@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, BookOpen, Users, Search, User, LogOut } from "lucide-react";
+import { Menu, X, BookOpen, Users, Search, User, LogOut, Settings } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, signOut } = useAuth();
+  const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleAuthAction = () => {
@@ -40,6 +40,12 @@ export function Navigation() {
             <a href="/progress" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
               My Progress
             </a>
+            {isAdmin && (
+              <a href="/admin" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
+                <Settings className="h-4 w-4 inline mr-1" />
+                Admin
+              </a>
+            )}
             <Button variant="secondary" size="sm" onClick={handleAuthAction}>
               {user ? <LogOut className="h-4 w-4 mr-2" /> : <User className="h-4 w-4 mr-2" />}
               {user ? 'Sign Out' : 'Sign In'}
@@ -72,6 +78,12 @@ export function Navigation() {
               <a href="/progress" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
                 My Progress
               </a>
+              {isAdmin && (
+                <a href="/admin" className="text-primary-foreground/90 hover:text-primary-foreground transition-smooth">
+                  <Settings className="h-4 w-4 inline mr-1" />
+                  Admin
+                </a>
+              )}
               <Button variant="secondary" size="sm" className="w-fit" onClick={handleAuthAction}>
                 {user ? <LogOut className="h-4 w-4 mr-2" /> : <User className="h-4 w-4 mr-2" />}
                 {user ? 'Sign Out' : 'Sign In'}

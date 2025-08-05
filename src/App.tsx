@@ -8,6 +8,7 @@ import Auth from "./pages/Auth";
 import ClassDetail from "./pages/ClassDetail";
 import BibleCharacters from "./pages/BibleCharacters";
 import UserProgress from "./pages/UserProgress";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/class/:id" element={<ClassDetail />} />
           <Route path="/characters" element={<BibleCharacters />} />
           <Route path="/progress" element={<UserProgress />} />
+          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
