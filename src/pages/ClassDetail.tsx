@@ -24,8 +24,11 @@ interface Lesson {
   id: string;
   title: string;
   description: string;
-  lesson_order: number;
-  duration_minutes: number;
+  body_content: string;
+  image_url: string;
+  bible_references: string[];
+  display_order: number;
+  content_type: string;
 }
 
 const ClassDetail = () => {
@@ -47,7 +50,7 @@ const ClassDetail = () => {
     try {
       // Fetch class details
       const { data: classData, error: classError } = await supabase
-        .from('bible_classes')
+        .from('main_topics')
         .select('*')
         .eq('id', id)
         .single();
@@ -57,10 +60,11 @@ const ClassDetail = () => {
 
       // Fetch lessons
       const { data: lessonsData, error: lessonsError } = await supabase
-        .from('lessons')
+        .from('content')
         .select('*')
-        .eq('class_id', id)
-        .order('lesson_order');
+        .eq('main_topic_id', id)
+        .eq('content_type', 'lesson')
+        .order('display_order');
 
       if (lessonsError) throw lessonsError;
       setLessons(lessonsData || []);
@@ -209,8 +213,8 @@ const ClassDetail = () => {
                         <div className="flex items-center justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-3">
-                              <span className="text-sm font-medium text-muted-foreground">
-                                Lesson {lesson.lesson_order}
+                               <span className="text-sm font-medium text-muted-foreground">
+                                Lesson {lesson.display_order}
                               </span>
                               {isCompleted && (
                                 <Badge variant="secondary" className="bg-green-100 text-green-800">
@@ -225,9 +229,9 @@ const ClassDetail = () => {
                               </p>
                             )}
                           </div>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Clock className="h-4 w-4" />
-                            {lesson.duration_minutes} min
+                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <BookOpen className="h-4 w-4" />
+                            Study Material
                           </div>
                         </div>
                       </CardContent>

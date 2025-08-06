@@ -89,7 +89,7 @@ const Admin = () => {
     try {
       // Fetch classes
       const { data: classesData } = await supabase
-        .from('bible_classes')
+        .from('main_topics')
         .select('*')
         .order('created_at', { ascending: false });
 
@@ -131,7 +131,7 @@ const Admin = () => {
   const createClass = async () => {
     try {
       const { error } = await supabase
-        .from('bible_classes')
+        .from('main_topics')
         .insert([classForm]);
 
       if (error) throw error;

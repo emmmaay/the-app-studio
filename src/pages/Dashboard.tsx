@@ -28,7 +28,7 @@ export default function Dashboard() {
   const fetchClasses = async () => {
     try {
       const { data, error } = await supabase
-        .from('bible_classes')
+        .from('main_topics')
         .select('*')
         .order('title');
 

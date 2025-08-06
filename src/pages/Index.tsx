@@ -1,7 +1,7 @@
-import Dashboard from "./Dashboard";
+import Study from "./Study";
 
 const Index = () => {
-  return <Dashboard />;
+  return <Study />;
 };
 
 export default Index;

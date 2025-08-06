@@ -2,31 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Bible Study App Design System - Modern Neutral Colors */
+/* Bible Study App Design System - Warm, Spiritual Colors for Bible Schoolers */
 
 @layer base {
   :root {
-    --background: 0 0% 99%;
-    --foreground: 225 25% 20%;
+    --background: 32 15% 98%;
+    --foreground: 25 35% 15%;
     
-    /* Brand colors - warm, spiritual neutrals */
-    --primary: 210 20% 25%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 210 25% 35%;
+    /* Brand colors - warm, biblical tones */
+    --primary: 25 45% 35%;
+    --primary-foreground: 45 25% 96%;
+    --primary-glow: 35 55% 45%;
+    --primary-deep: 20 55% 25%;
     
-    /* Content colors */
-    --content-warm: 35 15% 95%;
-    --content-accent: 210 15% 85%;
+    /* Content colors - warm biblical palette */
+    --content-warm: 45 25% 96%;
+    --content-accent: 35 20% 88%;
+    --content-scripture: 220 15% 94%;
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(210 20% 25%), hsl(210 25% 35%));
-    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 99%), hsl(210 15% 96%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 10% 98%));
+    /* Biblical gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(25 45% 35%), hsl(35 55% 45%));
+    --gradient-subtle: linear-gradient(180deg, hsl(45 25% 98%), hsl(35 20% 95%));
+    --gradient-card: linear-gradient(145deg, hsl(45 25% 99%), hsl(35 15% 96%));
+    --gradient-hero: linear-gradient(135deg, hsl(25 45% 35%) 0%, hsl(35 55% 45%) 50%, hsl(45 45% 55%) 100%);
     
-    /* Shadows */
-    --shadow-elegant: 0 4px 20px -4px hsl(210 20% 25% / 0.1);
-    --shadow-card: 0 2px 12px -2px hsl(210 15% 25% / 0.08);
-    --shadow-hover: 0 8px 30px -8px hsl(210 20% 25% / 0.15);
+    /* Warm shadows */
+    --shadow-elegant: 0 4px 20px -4px hsl(25 45% 35% / 0.12);
+    --shadow-card: 0 2px 12px -2px hsl(25 35% 25% / 0.1);
+    --shadow-hover: 0 8px 30px -8px hsl(25 45% 35% / 0.18);
+    --shadow-scripture: 0 2px 8px -1px hsl(35 25% 45% / 0.08);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
