@@ -53,91 +53,156 @@ export type Database = {
         }
         Relationships: []
       }
-      bible_classes: {
+      categories: {
         Row: {
           created_at: string
           description: string | null
+          display_order: number | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          main_topic_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          main_topic_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          main_topic_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "categories_main_topic_id_fkey"
+            columns: ["main_topic_id"]
+            isOneToOne: false
+            referencedRelation: "main_topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content: {
+        Row: {
+          bible_references: string[] | null
+          body_content: string | null
+          content_type: string
+          created_at: string
+          description: string | null
+          display_order: number | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          main_topic_id: string
+          parent_id: string | null
+          parent_type: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          bible_references?: string[] | null
+          body_content?: string | null
+          content_type?: string
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          main_topic_id: string
+          parent_id?: string | null
+          parent_type: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          bible_references?: string[] | null
+          body_content?: string | null
+          content_type?: string
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          main_topic_id?: string
+          parent_id?: string | null
+          parent_type?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_main_topic_id_fkey"
+            columns: ["main_topic_id"]
+            isOneToOne: false
+            referencedRelation: "main_topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      main_topics: {
+        Row: {
+          background_color: string | null
+          created_at: string
+          description: string | null
           difficulty_level: string | null
+          display_order: number | null
           duration_weeks: number | null
           id: string
           image_url: string | null
           instructor: string | null
+          is_active: boolean | null
           title: string
           total_lessons: number | null
           updated_at: string
         }
         Insert: {
+          background_color?: string | null
           created_at?: string
           description?: string | null
           difficulty_level?: string | null
+          display_order?: number | null
           duration_weeks?: number | null
           id?: string
           image_url?: string | null
           instructor?: string | null
+          is_active?: boolean | null
           title: string
           total_lessons?: number | null
           updated_at?: string
         }
         Update: {
+          background_color?: string | null
           created_at?: string
           description?: string | null
           difficulty_level?: string | null
+          display_order?: number | null
           duration_weeks?: number | null
           id?: string
           image_url?: string | null
           instructor?: string | null
+          is_active?: boolean | null
           title?: string
           total_lessons?: number | null
           updated_at?: string
         }
         Relationships: []
-      }
-      lessons: {
-        Row: {
-          class_id: string
-          content: string | null
-          created_at: string
-          description: string | null
-          duration_minutes: number | null
-          id: string
-          lesson_order: number
-          title: string
-          updated_at: string
-          video_url: string | null
-        }
-        Insert: {
-          class_id: string
-          content?: string | null
-          created_at?: string
-          description?: string | null
-          duration_minutes?: number | null
-          id?: string
-          lesson_order: number
-          title: string
-          updated_at?: string
-          video_url?: string | null
-        }
-        Update: {
-          class_id?: string
-          content?: string | null
-          created_at?: string
-          description?: string | null
-          duration_minutes?: number | null
-          id?: string
-          lesson_order?: number
-          title?: string
-          updated_at?: string
-          video_url?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "lessons_class_id_fkey"
-            columns: ["class_id"]
-            isOneToOne: false
-            referencedRelation: "bible_classes"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       profiles: {
         Row: {
@@ -208,14 +273,7 @@ export type Database = {
             foreignKeyName: "user_progress_class_id_fkey"
             columns: ["class_id"]
             isOneToOne: false
-            referencedRelation: "bible_classes"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_progress_lesson_id_fkey"
-            columns: ["lesson_id"]
-            isOneToOne: false
-            referencedRelation: "lessons"
+            referencedRelation: "main_topics"
             referencedColumns: ["id"]
           },
         ]
